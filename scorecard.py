@@ -15,62 +15,70 @@ class Scorecard:
         self.yahtzee_used = False
         self.chance_used = False
         
-        def score_aces(self, dice:list):
-            '''Scores the aces. Adds all the ones and adds it to the scorecard.'''
-            round_score = 0
-            for die in dice:
-                if die == 1:
-                    round_score += 1
+    def score_aces(self, dice:list):
+        '''Scores the aces. Adds all the ones and adds it to the scorecard.'''
+        round_score = 0
+        for die in dice:
+            if die == 1:
+                round_score += 1
 
-            self.aces_used = True
-            return round_score
+        self.aces_used = True
+        return round_score
+    
+    def score_twos(self, dice:list):
+        '''Scores the twos. Adds all the twos and adds it to the scorecard.'''
+        round_score = 0
+        for die in dice:
+            if die == 2:
+                round_score += 2
+
+        self.two_used = True
+        return round_score
+    
+    def score_threes(self, dice:list):
+        '''Scores the threes. Adds all the threes and adds it to the scorecard.'''
+        round_score = 0
+        for die in dice:
+            if die == 3:
+                round_score += 3
+
+        self.threes_used = True
+        return round_score
+    
+    def score_fours(self, dice:list):
+        '''Scores the fours. Adds all the fours and adds it to the scorecard.'''
+        round_score = 0
+        for die in dice:
+            if die == 4:
+                round_score += 4
+
+        self.fours_used = True
+        return round_score
+    
+    def score_fives(self, dice:list):
+        '''Scores the fives. Adds all the fives and adds it to the scorecard.'''
+        round_score = 0
+        for die in dice:
+            if die == 5:
+                round_score += 5
+
+        self.fives_used = True
+        return round_score
+    
+    def score_sixes(self, dice:list):
+        '''Scores the sixes. Adds all the sixes and adds it to the scorecard.'''
+        round_score = 0
+        for die in dice:
+            if die == 6:
+                round_score += 6
+
+        self.sixes_used = True
+        return round_score
+
+
+    def large_straight(self,dice:list):
+
+        round_score = 0
         
-        def score_twos(self, dice:list):
-            '''Scores the twos. Adds all the twos and adds it to the scorecard.'''
-            round_score = 0
-            for die in dice:
-                if die == 2:
-                    round_score += 2
-
-            self.two_used = True
-            return round_score
-        
-        def score_threes(self, dice:list):
-            '''Scores the threes. Adds all the threes and adds it to the scorecard.'''
-            round_score = 0
-            for die in dice:
-                if die == 3:
-                    round_score += 3
-
-            self.threes_used = True
-            return round_score
-        
-        def score_fours(self, dice:list):
-            '''Scores the fours. Adds all the fours and adds it to the scorecard.'''
-            round_score = 0
-            for die in dice:
-                if die == 4:
-                    round_score += 4
-
-            self.fours_used = True
-            return round_score
-        
-        def score_fives(self, dice:list):
-            '''Scores the fives. Adds all the fives and adds it to the scorecard.'''
-            round_score = 0
-            for die in dice:
-                if die == 5:
-                    round_score += 5
-
-            self.fives_used = True
-            return round_score
-        
-        def score_sixes(self, dice:list):
-            '''Scores the sixes. Adds all the sixes and adds it to the scorecard.'''
-            round_score = 0
-            for die in dice:
-                if die == 6:
-                    round_score += 6
-
-            self.sixes_used = True
-            return round_score
+        if sorted(dice) == [1, 2, 3, 4, 5] or sorted(dice) == [2, 3, 4, 5, 6,]:
+            self.lg_straight_used
