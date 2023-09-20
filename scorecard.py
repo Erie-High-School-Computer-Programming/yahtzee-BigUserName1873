@@ -11,10 +11,16 @@ class Scorecard:
         self.four_of_kind_used = False
         self.full_house_used = False        
         self.sm_straight_used = False
-        self.lg_stragith_used = False
+        self.lg_straight_used = False
         self.yahtzee_used = False
         self.chance_used = False
-        
+
+        self.bonus_yahtzee = False
+    
+    def convert_to_set(list:list):
+        set(list)
+        return sorted(set)
+
     def score_aces(self, dice:list):
         '''Scores the aces. Adds all the ones and adds it to the scorecard.'''
         round_score = 0
@@ -77,8 +83,67 @@ class Scorecard:
 
 
     def large_straight(self,dice:list):
-
         round_score = 0
         
         if sorted(dice) == [1, 2, 3, 4, 5] or sorted(dice) == [2, 3, 4, 5, 6,]:
-            self.lg_straight_used
+            self.lg_straight_used = True
+            round_score += 40
+
+        return round_score
+
+    def yahtzee(self, dice:list):
+        '''Scores the yahtzee. It removes the duplicates from the list using set and tests if the lenght is longer than one.'''
+        round_score = 0
+
+        dice_set = set(dice)
+
+        if len(dice_set) == 1:
+            if self.bonus_yahtzee == True:
+                round_score += 100
+            else:
+                round_score += 50
+                self.bonus_yahtzee = True
+
+        return round_score
+
+
+
+    def chance(self, dice:list):
+        '''Scores the chance. Uses sum to add all the values.'''
+        round_score = 0
+        self.chance_used = True
+        chance_score = sum(dice)
+        round_score += chance_score
+
+        return round_score
+
+
+
+    def full_house(self, dice:list):
+        '''Scores the full house. It removes the duplicates from the list using set and tests if the lenght is longer than two.'''
+        round_score = 0
+
+        dice_set = set(dice)
+
+        if len(dice_set) == 2:
+            self.full_house_used = True
+            round_score += 25
+
+        return round_score
+
+    def small_straight(self, dice:list):
+        '''Score small straight.'''
+        round_score = 0
+        dice_check = 0
+
+
+        dice_sorted = self.convert_to_set(dice)
+
+        for i in range(4):
+            if dice_sorted[i] + 1 == dice_sorted[i+1]:
+                dice_check += 1
+        if dice_check == 3:
+            round_score += 30
+            self.sm_straight_used = True
+
+        return round_score
