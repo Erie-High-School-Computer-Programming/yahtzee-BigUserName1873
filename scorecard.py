@@ -1,3 +1,6 @@
+import random
+
+
 class Scorecard:
     def __init__(self):
         self.score = 0
@@ -14,12 +17,20 @@ class Scorecard:
         self.lg_straight_used = False
         self.yahtzee_used = False
         self.chance_used = False
+        
 
         self.bonus_yahtzee = False
     
-    def remove_dups_and_sort(list:list):
+    def roll (self, dice:list):
+        for i in range(5):
+            num = random.randint(1,6)
+            dice.append(num)
+        print (dice)
+        
+
+    def remove_dups_and_sort(self, list:list):
         set(list)
-        return sorted(set)
+        return sorted(list)
 
     def score_aces(self, dice:list):
         '''Scores the aces. Adds all the ones and adds it to the scorecard.'''
@@ -84,8 +95,12 @@ class Scorecard:
 
     def large_straight(self,dice:list):
         round_score = 0
-        
-        if sorted(dice) == [1, 2, 3, 4, 5] or sorted(dice) == [2, 3, 4, 5, 6,]:
+        dice_check = 0
+        dice_sorted = self.remove_dups_and_sort(dice)
+        for i in range(4):
+            if dice_sorted[i] + 1 == dice_sorted[i+1]:
+                dice_check += 1
+        if dice_check >= 4:
             self.lg_straight_used = True
             round_score += 40
 
@@ -155,21 +170,30 @@ class Scorecard:
     def four_of_a_kind(self, dice:list):
 
         round_score = 0 
+        dice_score = sum(dice)
+        dice_sorted = sorted(dice)
+        dice_check = 0
+        if dice_sorted[0] == dice_sorted[2] or dice_sorted[1] == dice_sorted[-1]:
+            round_score += dice_score  
+        else:
+            round_score += 0
 
-        dice_sorted = self.remove_dups_and_sort(dice)
-        
-        if dice_sorted >=2 :
-            dice_score = sum(dice)
-            round_score += dice_score
+        return round_score
 
-
-    def theer_of_a_kind(self, dice:list):
+    def three_of_a_kind(self, dice:list):
 
         round_score = 0 
-
-        dice_sorted = self.remove_dups_and_sort(dice)
+        dice_score = sum(dice)
+        dice_sorted = sorted(dice)
         
-        if dice_sorted >=3 :
-            dice_score = sum(dice)
-            round_score += dice_score
+        
+        if dice_sorted[1] == dice_sorted[2] or dice_sorted[2] == dice_sorted[-1] or dice_sorted[1] == dice_sorted[3]:
+            
+            round_score += dice_score   
+        else:
+            round_score += 0
 
+        return round_score
+
+
+    
